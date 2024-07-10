@@ -27,6 +27,7 @@ function addTask(task) {
 
 function showTasks() {
   var taskList = document.getElementById("taskList");
+
   taskList.innerHTML = "";
   tasks.forEach((item) => {
     console.log(item, "single task");
@@ -39,5 +40,18 @@ function showTasks() {
     document.body.appendChild(taskList);
     taskList.appendChild(li);
     li.appendChild(p);
+
+    var icons = document.createElement("div");
+    icons.classList = "icons";
+    li.appendChild(icons);
+
+    var trashIcon = document.createElement("img");
+    var editIcon = document.createElement("img");
+
+    trashIcon.src = "./trash.svg";
+    editIcon.src = "./edit.svg";
+
+    icons.appendChild(trashIcon);
+    icons.appendChild(editIcon);
   });
 }
