@@ -53,5 +53,18 @@ function showTasks() {
 
     icons.appendChild(trashIcon);
     icons.appendChild(editIcon);
+
+    trashIcon.addEventListener("click", () => {
+      const trashModal = new bootstrap.Modal(
+        document.getElementById("exampleModal-delete")
+      );
+      trashModal.show();
+    });
+    editIcon.addEventListener("click", () => {
+      const editModal = new bootstrap.Modal(
+        document.getElementById("exampleModal")
+      );
+      editModal.show();
+    });
   });
 }
