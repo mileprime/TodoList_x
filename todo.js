@@ -68,3 +68,34 @@ function showTasks() {
     });
   });
 }
+
+function deleteTask(id) {}
+
+const deletebtn = document.getElementById("confirmDeleteButton");
+deletebtn.addEventListener("click", () => {
+  var trashModal = bootstrap.Modal.getInstance(
+    document.getElementById("exampleModal-delete")
+  );
+  trashModal.hide();
+});
+
+// var arr = [
+//   { name: "Ali", age: 88 },
+//   { name: "Ahmed", age: 29 },
+//   { name: "Jhon", age: 92 },
+// ];
+
+//filter array
+// var filterd = arr.filter((item) => {
+//   return item.id !== "29802";
+// });
+
+//map array
+// var newArray = arr.map((item) => {
+//   if (item.age == 88) {
+//     return { ...item, name: "Too old" };
+//   } else {
+//     return item;
+//   }
+// });
+// console.log(newArray);
