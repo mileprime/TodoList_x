@@ -1,5 +1,6 @@
 var tasks = [];
 var count = 0;
+var deleteId = null;
 //get access to the add button
 var addBtn = document.getElementById("addTaskButton");
 
@@ -59,6 +60,7 @@ function showTasks() {
         document.getElementById("exampleModal-delete")
       );
       trashModal.show();
+      deleteId = item.id;
     });
     editIcon.addEventListener("click", () => {
       const editModal = new bootstrap.Modal(
@@ -69,10 +71,20 @@ function showTasks() {
   });
 }
 
-function deleteTask(id) {}
+function deleteTask(id) {
+  tasks = tasks.filter((task) => {
+    //return only the tasks that its id is not equal to this id
+    //if you see this id kick it out of the array
+    return task.id != id;
+  });
+  showTasks();
+  console.log(tasks, deleteId, "deleted the task");
+}
 
 const deletebtn = document.getElementById("confirmDeleteButton");
 deletebtn.addEventListener("click", () => {
+  deleteTask(deleteId);
+
   var trashModal = bootstrap.Modal.getInstance(
     document.getElementById("exampleModal-delete")
   );
