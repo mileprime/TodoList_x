@@ -28,10 +28,10 @@ function addTask(task) {
 
 function showTasks() {
   var taskList = document.getElementById("taskList");
-
+  taskList.classList = "list-group mt-4";
   taskList.innerHTML = "";
   tasks.forEach((item) => {
-    console.log(item, "single task");
+    // console.log(item, "single task");
     var li = document.createElement("li");
     li.classList = "list-group-item d-flex justify-content-between";
 
@@ -63,6 +63,9 @@ function showTasks() {
       deleteId = item.id;
     });
     editIcon.addEventListener("click", () => {
+      let textvalue = document.createElement("input");
+      textvalue.value = item.text;
+      console.log(text);
       const editModal = new bootstrap.Modal(
         document.getElementById("exampleModal")
       );
