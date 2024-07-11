@@ -63,9 +63,9 @@ function showTasks() {
       deleteId = item.id;
     });
     editIcon.addEventListener("click", () => {
-      let textvalue = document.createElement("input");
+      let textvalue = document.getElementById("editTaskInput");
       textvalue.value = item.text;
-      console.log(text);
+      console.log(item, "task is added");
       const editModal = new bootstrap.Modal(
         document.getElementById("exampleModal")
       );
