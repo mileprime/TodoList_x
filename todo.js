@@ -1,6 +1,7 @@
 var tasks = [];
 var count = 0;
 var deleteId = null;
+var editedId = null;
 //get access to the add button
 var addBtn = document.getElementById("addTaskButton");
 
@@ -65,13 +66,27 @@ function showTasks() {
     editIcon.addEventListener("click", () => {
       let textvalue = document.getElementById("editTaskInput");
       textvalue.value = item.text;
-      console.log(item, "task is added");
+      editedId = item.id;
+      // console.log(item, "task is added");
       const editModal = new bootstrap.Modal(
         document.getElementById("exampleModal")
       );
       editModal.show();
     });
   });
+}
+
+function editTask(taskid, updatedText) {
+  let task = tasks.find((item) => item.id == taskid);
+  console.log(task, "This is inside editTask");
+  if (task) {
+    task.text = updatedText;
+  }
+  showTasks();
+
+  // console.log(taskid, updatedText, "this is inside editTask");
+  //id of the element  that will be edited
+  //new value for the element
 }
 
 function deleteTask(id) {
@@ -83,6 +98,16 @@ function deleteTask(id) {
   showTasks();
   console.log(tasks, deleteId, "deleted the task");
 }
+
+let editSave = document.getElementById("saveEditButton");
+let updatedTaskInput = document.getElementById("editTaskInput");
+editSave.addEventListener("click", () => {
+  editTask(editedId, updatedTaskInput.value);
+  let trashModal = bootstrap.Modal.getInstance(
+    document.getElementById("exampleModal")
+  );
+  trashModal.hide();
+});
 
 const deletebtn = document.getElementById("confirmDeleteButton");
 deletebtn.addEventListener("click", () => {
