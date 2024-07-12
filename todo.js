@@ -1,61 +1,66 @@
-var tasks = [];
-var count = 0;
-var deleteId = null;
-var editedId = null;
-//get access to the add button
-var addBtn = document.getElementById("addTaskButton");
+// Initialize an array to store tasks and set up initial variables
+let tasks = [];
+let count = 0;
+let deleteId = null;
+let editedId = null;
 
-//attach an event to the add button
+// Get access to the "Add Task" button
+let addBtn = document.getElementById("addTaskButton");
+
+// Attach an event listener to the "Add Task" button to handle adding tasks
 addBtn.addEventListener("click", () => {
-  //get access to the input field
-  var userInput = document.getElementById("taskInput");
-  //check if the input is not empty then call addTask
-
+  // Get the user input from the input field
+  let userInput = document.getElementById("taskInput");
+  
+  // Check if the input is not empty, then call the addTask function
   if (userInput.value != "") {
     addTask(userInput.value);
-    //clear input box after adding
+    // Clear the input box after adding the task
     userInput.value = "";
   } else {
     alert("Empty Task!!!");
   }
 });
 
+// Function to add a new task to the tasks array
 function addTask(task) {
   count++;
   tasks.push({ id: count, text: task });
   showTasks();
-  // console.log(tasks);
 }
 
+// Function to display tasks in the task list
 function showTasks() {
-  var taskList = document.getElementById("taskList");
+  let taskList = document.getElementById("taskList");
   taskList.classList = "list-group mt-4";
   taskList.innerHTML = "";
+  
+  // Loop through each task in the tasks array
   tasks.forEach((item) => {
-    // console.log(item, "single task");
-    var li = document.createElement("li");
+    let li = document.createElement("li");
     li.classList = "list-group-item d-flex justify-content-between";
-
-    var p = document.createElement("p");
+    
+    let p = document.createElement("p");
     p.textContent = item.text;
-
+    
     document.body.appendChild(taskList);
     taskList.appendChild(li);
     li.appendChild(p);
-
-    var icons = document.createElement("div");
+    
+    let icons = document.createElement("div");
     icons.classList = "icons";
     li.appendChild(icons);
-
-    var trashIcon = document.createElement("img");
-    var editIcon = document.createElement("img");
-
+    
+    let trashIcon = document.createElement("img");
+    let editIcon = document.createElement("img");
+    
     trashIcon.src = "./trash.svg";
     editIcon.src = "./edit.svg";
-
+    
     icons.appendChild(trashIcon);
     icons.appendChild(editIcon);
-
+    
+    // Add click event to show delete confirmation modal
     trashIcon.addEventListener("click", () => {
       const trashModal = new bootstrap.Modal(
         document.getElementById("exampleModal-delete")
@@ -63,11 +68,12 @@ function showTasks() {
       trashModal.show();
       deleteId = item.id;
     });
+
+    // Add click event to show edit task modal
     editIcon.addEventListener("click", () => {
       let textvalue = document.getElementById("editTaskInput");
       textvalue.value = item.text;
       editedId = item.id;
-      // console.log(item, "task is added");
       const editModal = new bootstrap.Modal(
         document.getElementById("exampleModal")
       );
@@ -76,31 +82,29 @@ function showTasks() {
   });
 }
 
+// Function to edit an existing task
 function editTask(taskid, updatedText) {
   let task = tasks.find((item) => item.id == taskid);
-  console.log(task, "This is inside editTask");
   if (task) {
     task.text = updatedText;
   }
   showTasks();
-
-  // console.log(taskid, updatedText, "this is inside editTask");
-  //id of the element  that will be edited
-  //new value for the element
 }
 
+// Function to delete a task
 function deleteTask(id) {
   tasks = tasks.filter((task) => {
-    //return only the tasks that its id is not equal to this id
-    //if you see this id kick it out of the array
     return task.id != id;
   });
   showTasks();
-  console.log(tasks, deleteId, "deleted the task");
 }
 
+// Get the save button in the edit modal
 let editSave = document.getElementById("saveEditButton");
+// Get the input field in the edit modal
 let updatedTaskInput = document.getElementById("editTaskInput");
+
+// Add event listener to the save button to update the task
 editSave.addEventListener("click", () => {
   editTask(editedId, updatedTaskInput.value);
   let trashModal = bootstrap.Modal.getInstance(
@@ -109,33 +113,14 @@ editSave.addEventListener("click", () => {
   trashModal.hide();
 });
 
+// Get the delete confirmation button
 const deletebtn = document.getElementById("confirmDeleteButton");
+
+// Add event listener to the delete button to remove the task
 deletebtn.addEventListener("click", () => {
   deleteTask(deleteId);
-
-  var trashModal = bootstrap.Modal.getInstance(
+  let trashModal = bootstrap.Modal.getInstance(
     document.getElementById("exampleModal-delete")
   );
   trashModal.hide();
 });
-
-// var arr = [
-//   { name: "Ali", age: 88 },
-//   { name: "Ahmed", age: 29 },
-//   { name: "Jhon", age: 92 },
-// ];
-
-//filter array
-// var filterd = arr.filter((item) => {
-//   return item.id !== "29802";
-// });
-
-//map array
-// var newArray = arr.map((item) => {
-//   if (item.age == 88) {
-//     return { ...item, name: "Too old" };
-//   } else {
-//     return item;
-//   }
-// });
-// console.log(newArray);
